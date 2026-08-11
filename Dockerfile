@@ -22,8 +22,24 @@ RUN set -eux; \
 RUN addgroup -g 10000 icloud \
     && adduser -D -u 10000 -G icloud icloud
 
+COPY --chmod=0755 docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
 USER icloud
 
 EXPOSE 8000
 
-CMD ["supergateway", "--stdio", "/usr/local/bin/icloud-mcp", "--outputTransport", "streamableHttp", "--port", "8000", "--streamableHttpPath", "/mcp"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+
+CMD [
+  "supergateway",
+  "--stdio",
+  "/usr/local/bin/icloud-mcp",
+  "--outputTransport",
+  "streamableHttp",
+  "--port",
+  "8000",
+  "--streamableHttpPath",
+  "/mcp",
+  "--healthEndpoint",
+  "/healthz"
+]
