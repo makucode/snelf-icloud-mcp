@@ -30,16 +30,4 @@ EXPOSE 8000
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
-CMD [
-  "supergateway",
-  "--stdio",
-  "/usr/local/bin/icloud-mcp",
-  "--outputTransport",
-  "streamableHttp",
-  "--port",
-  "8000",
-  "--streamableHttpPath",
-  "/mcp",
-  "--healthEndpoint",
-  "/healthz"
-]
+CMD ["supergateway", "--stdio", "/usr/local/bin/icloud-mcp", "--outputTransport", "streamableHttp", "--port", "8000", "--streamableHttpPath", "/mcp", "--healthEndpoint", "/healthz"]
