@@ -5,12 +5,24 @@ Containerized iCloud MCP sidecar for Snelf.
 It combines:
 
 - [icloud-mcp](https://github.com/ThomasCrouzet/icloud-mcp)
-- [supergateway](https://github.com/supercorp-ai/supergateway)
+- [Supergateway](https://github.com/supercorp-ai/supergateway)
 
-`icloud-mcp` runs as a stdio MCP server and Supergateway exposes it
-as Streamable HTTP for Snelf/Hermes.
+`icloud-mcp` runs as a local stdio MCP server inside the container.
+Supergateway exposes it as Streamable HTTP for Snelf / Hermes.
 
-## Image
+## Architecture
 
 ```text
-ghcr.io/makucode/snelf-icloud-mcp
+Snelf / Hermes
+      |
+      | Streamable HTTP
+      | http://icloud-mcp:8000/mcp
+      v
+Supergateway
+      |
+      | stdio
+      v
+icloud-mcp
+      |
+      v
+iCloud
